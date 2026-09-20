@@ -31,6 +31,7 @@ FetchContent_MakeAvailable(signalsmith_stretch)
 
 option(FFORM_BUILD_AAX "Build the AAX plugin" OFF)
 option(FFORM_BUILD_QA_HARNESS "Build the headless DSP QA renderer" OFF)
+option(FFORM_BUILD_OFFLINE_HARNESS "Build the standalone offline renderer" OFF)
 set(FFORM_AAX_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/vendor/aax-sdk-2-9-0" CACHE PATH
     "Path to the AAX SDK")
 
@@ -118,6 +119,34 @@ if(FFORM_BUILD_QA_HARNESS)
     )
 
     target_link_libraries(fform-qa-renderer
+        PRIVATE
+            juce::juce_audio_formats
+            juce::juce_audio_basics
+            juce::juce_dsp
+            juce::juce_graphics
+            signalsmith-stretch
+    )
+endif()
+
+if(FFORM_BUILD_OFFLINE_HARNESS)
+    add_executable(fform-offline-renderer
+        tools/fform-offline/main.cpp
+        src/dsp/OfflineStretchEngine.h
+    )
+
+    target_include_directories(fform-offline-renderer
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/dsp
+            ${CMAKE_CURRENT_BINARY_DIR}/PitchTimePro_artefacts/JuceLibraryCode
+    )
+
+    target_compile_definitions(fform-offline-renderer
+        PRIVATE
+            JUCE_WEB_BROWSER=0
+            JUCE_USE_CURL=0
+    )
+
+    target_link_libraries(fform-offline-renderer
         PRIVATE
             juce::juce_audio_formats
             juce::juce_audio_basics

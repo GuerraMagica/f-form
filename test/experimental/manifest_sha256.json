@@ -1,0 +1,250 @@
+{
+  "package": "FForm_QA_Complete_20260920",
+  "files": [
+    {
+      "path": "GITIGNORE_SNIPPET.txt",
+      "bytes": 371,
+      "sha256": "54ef77ce8a5ff60e7437a80d4dc3bc43d3cc44e8279f1a5093c2700637b499eb"
+    },
+    {
+      "path": "README.md",
+      "bytes": 4379,
+      "sha256": "df4a7070f1e3c3e7214343d223acd3c2521babf6b3da4e49407296b2b2991be0"
+    },
+    {
+      "path": "docs/AGENT_HANDOFF.md",
+      "bytes": 1165,
+      "sha256": "c4c5fa4e23a8235772def6084f5296b84f94c9295291da8add71605a021eb7aa"
+    },
+    {
+      "path": "experimental/SHIFT2/SHIFT2-main.zip",
+      "bytes": 42554,
+      "sha256": "38e670f9e3f89187a96f40f0091bfc06a5c301b2e71a91d9aa425daf9191cf40"
+    },
+    {
+      "path": "experimental/SHIFT2/SHIFT2_CPP_Probe.cpp",
+      "bytes": 1262,
+      "sha256": "05beacfcdb36b69d6cabe37a70b42c9a8aa8e3105353784fe4ec0919aade9feb"
+    },
+    {
+      "path": "experimental/SHIFT2/SHIFT2_Informe_Tecnico.md",
+      "bytes": 6929,
+      "sha256": "8ff4629744fc5ebf8a0fa38c767e604b475f04d8ec2bfffd60efdf3469956402"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/README.md",
+      "bytes": 1469,
+      "sha256": "833e425f9ce0a15cea643ac840500d6d1b0cf91eee45b5e3a9a2c587d10be953"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/RESULTADOS_PRELIMINARES.md",
+      "bytes": 3970,
+      "sha256": "806afb54dc5e4cde5a2204031562c43daa44298f7bd9304c66f2251543c38ca5"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/__pycache__/analyze_full.cpython-313.pyc",
+      "bytes": 13219,
+      "sha256": "3f81d0c09dc846e7ef3ed1ee25cbd4149d0ab3a6556638e9dd5f44a80c346307"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/analyze.py",
+      "bytes": 5024,
+      "sha256": "ccd7c8145778214d67d9fab545ffdc4ef86d274f8ef62de6133a0d7fd9c4995e"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/analyze_full.py",
+      "bytes": 8108,
+      "sha256": "d46554ed033e704fe343087d786d947b1293b8a35d315eb7d50bbbe37bdea308"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/00_ORIGINAL.wav",
+      "bytes": 42200562,
+      "sha256": "c3e055367cafddfd3bbf367e0562feff88fff4ce884796070dce02a4e6fab352"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/renders/BYP-01 — Enabled ON OFF durante reproducción.wav",
+      "bytes": 12972966,
+      "sha256": "2564440a5b94cff551cd394e2a1503ec7085211c19ae3f0408942910006223d1"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/renders/BYP-02 — Bypass nativo de Pro Tools.wav",
+      "bytes": 9637654,
+      "sha256": "9a842ee13a21827d16293e27c5052b901f554513765e8fba0be3a220732ce693"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/renders/ITCH-01 — Time 1.00× Pitch 1.00×_Audio 2-7.1.wav",
+      "bytes": 224782592,
+      "sha256": "36efe04e5cef768400435cb789cc2884145239eba4996f251e5d4b1c0bb0c969"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/renders/LAT-01 — Grabar el retorno de F-Form en otra pista.wav",
+      "bytes": 17338974,
+      "sha256": "7b6af21bb4fe14b36c28ec907c3c14000e019294a702cf0a26eb4031fc2c3b38"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/renders/PITCH-02 — Time 1.00× Pitch 1.19×_Audio 2-7.1.wav",
+      "bytes": 224782592,
+      "sha256": "c5456ac01824d73866bb55649f5063861f63f4d98717b77186f9f446df05737c"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/renders/PITCH-03 — Time 1.00× Pitch 0.84×_Audio 2-7.1.wav",
+      "bytes": 224782592,
+      "sha256": "eafd5941d65100839ebc597888f112e0a1657a9610fddc3d87238438c6e4c84c"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/local_audio/renders/PITCH-04 — Time 1.00× Pitch 2.00×_Audio 2-7.1.wav",
+      "bytes": 224782592,
+      "sha256": "2f4adfa91a0d0fd04c250642040fcc77260b33864d1bc28c0afce37d325ce02e"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/report.json",
+      "bytes": 8642,
+      "sha256": "72af3149c35823189b47c8826b1338e3176f2453aa4b073694889cada172124b"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/reports/musical_full.json",
+      "bytes": 16192,
+      "sha256": "bbaadad1ae8dea2e883944c207aa15aff604c27cd8489e8645918550c25caa3b"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/reports/musical_full.md",
+      "bytes": 1584,
+      "sha256": "6a7081d6e26fa3f13f63e47049e8963eb2a43f48406f357ee6093cecf3721581"
+    },
+    {
+      "path": "test/qa/FForm_Musical_QA/reports/musical_legacy_refresh.json",
+      "bytes": 8642,
+      "sha256": "72af3149c35823189b47c8826b1338e3176f2453aa4b073694889cada172124b"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/.pytest_cache/.gitignore",
+      "bytes": 37,
+      "sha256": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/.pytest_cache/CACHEDIR.TAG",
+      "bytes": 191,
+      "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/.pytest_cache/README.md",
+      "bytes": 302,
+      "sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/.pytest_cache/v/cache/nodeids",
+      "bytes": 242,
+      "sha256": "a115cd3524b986b65022c3531b5ff3dea02da89be61e0d6b23addc2be4207ce2"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/AGENT_BRIEF.md",
+      "bytes": 4791,
+      "sha256": "ba95a32024bc7c90363e5e28dbaa675f09bcf4aa6dd03f98e25ad5ae1126e97d"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/README.md",
+      "bytes": 5310,
+      "sha256": "1c771c7be41185497d3bac13d59084e0102f81259c029d61719e185b38c16a2f"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/__pycache__/fform_qa.cpython-313.pyc",
+      "bytes": 20875,
+      "sha256": "ed92cfa467d05e13a73fbd639eb08e0ab47b5b3a80f99689e5790271338b5e80"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/fform_qa.py",
+      "bytes": 12292,
+      "sha256": "dc3121f808c938c87c478cbc29374b976b571718739cb7b2b487d00b1f3b32ac"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/reference_control/artificial_delay.json",
+      "bytes": 1988,
+      "sha256": "118905e50adbcea27cf2cc21771d5fe5583bb66cad80e02c89d9c408e9e00944"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/reference_control/artificial_delay.md",
+      "bytes": 1668,
+      "sha256": "3b59446564edebae8eee11338b47ff740f7f0ab758764402c48c213a68a836e9"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/reference_control/artificial_delay_10ms.wav",
+      "bytes": 2306000,
+      "sha256": "6560278e1a2163718ee21968b0634b6a8fbae2aa436802d796b407cc00a68265"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/reference_control/varispeed.json",
+      "bytes": 2012,
+      "sha256": "0a9945887f573be8e065a8d8c43d52ffb4f235ddd678e6f31c36920399cda90a"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/reference_control/varispeed.md",
+      "bytes": 1697,
+      "sha256": "aeb74890555dc87f3ee32d4ac9a5c5e6287ce18b1fc248b29854e5fb6aba8db8"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/reference_control/varispeed_24_to_25.wav",
+      "bytes": 2211920,
+      "sha256": "b3f6a5ef134bddb44a2fd6d309e57fbb35305d2d1275c2e21a74abce332dd214"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/requirements.txt",
+      "bytes": 63,
+      "sha256": "1998a9445845cef53f14d08dbf35a097d3b6a6e15db4ef1ca9cc10583c59e2c9"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/manifest.json",
+      "bytes": 1200,
+      "sha256": "20548216e51eeeeba3573058b2ed5e69107ca0536a17b3f2b1eb3b5d02354040"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/silence_stereo.wav",
+      "bytes": 4608088,
+      "sha256": "b24c05f33283611256fffee71fb3418cd684c9e57bb043c0065202f2cac14806"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/sync_5_1_offset.wav",
+      "bytes": 13824120,
+      "sha256": "2437fa6bbabddf168d37f337d5d2afc43d5039bd4c4f18c86180252489faf734"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/sync_mono.wav",
+      "bytes": 2304080,
+      "sha256": "6af663c5697439d3ab94acba9dfdab81d6eae9e5bd1055e19518df25bbb20cd8"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/sync_stereo_antiphase.wav",
+      "bytes": 4608088,
+      "sha256": "08775ac47b3ea1f0972508fa5351eadca7fb8d2ed035717af2e0226d4d9900f9"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/sync_stereo_identical.wav",
+      "bytes": 4608088,
+      "sha256": "dbee395c03d6daec1540ed9e0b1bd0a08d18c243c4150cc5eff737d6b043cad5"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/sync_stereo_offset.wav",
+      "bytes": 4608088,
+      "sha256": "58de5c75fa3caa1cc49e95a1304318baac8121f2fb53ea0d12fbcfa16a1c577b"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/stimuli/tone_440_mono.wav",
+      "bytes": 2304080,
+      "sha256": "f868ce85943416f555bee46fc7f9441cefc15371476a981bb0432d5380b040ed"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/tests/__pycache__/test_qa.cpython-313-pytest-9.0.2.pyc",
+      "bytes": 8897,
+      "sha256": "24aa0081a82d802eaaa34df8a2f0d4bed357571a228ffe058b3b254297fce338"
+    },
+    {
+      "path": "test/qa/FForm_QA_Kit/tests/test_qa.py",
+      "bytes": 2030,
+      "sha256": "509a348e51b9d37c9b1b0e39c5b930f4bf937a50c24e55fe3028def0966ed434"
+    },
+    {
+      "path": "verify_manifest.py",
+      "bytes": 649,
+      "sha256": "2527992a4ad54510eb7e805b2db66c04183deedeff747bc288bece4a576021a0"
+    }
+  ]
+}

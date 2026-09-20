@@ -10,3 +10,5 @@ __pycache__/
 *.cer
 *.mobileprovision
 vendor/aax-sdk-2-9-0/
+**/local_audio/
+test/experimental/experimental/SHIFT2/*.zip

@@ -1,0 +1,10 @@
+# Material privado local F-Form Musical QA
+test/qa/FForm_Musical_QA/local_audio/
+# Prototipos recibidos de terceros / no validados
+experimental/SHIFT2/
+# Outputs generados localmente (ajusta si archivas reportes seleccionados)
+test/qa/FForm_Musical_QA/reports/musical_full.json
+test/qa/FForm_Musical_QA/reports/musical_full.md
+**/__pycache__/
+**/.pytest_cache/
+**/.venv/

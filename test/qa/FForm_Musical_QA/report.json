@@ -1,0 +1,408 @@
+{
+  "methodology": "F-Form QA musical preliminary. Neutral render as reference; no unprocessed original.",
+  "files": {
+    "neutral": {
+      "name": "ITCH-01 — Time 1.00× Pitch 1.00×_Audio 2-7.1.wav",
+      "sample_rate": 48000,
+      "channels": 8,
+      "frames": 6996480,
+      "duration_seconds": 145.76,
+      "format": "FLOAT",
+      "peak": [
+        0.8830885887145996,
+        0.8901846408843994,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19
+      ],
+      "rms": [
+        0.11976967450168088,
+        0.11503313127784762,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20
+      ],
+      "clipped_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finite_output": true,
+      "first_nonzero_sample": [
+        100728,
+        100785,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "last_nonzero_sample": [
+        6902977,
+        6902991,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "active_channels": [
+        1,
+        2
+      ]
+    },
+    "up3": {
+      "name": "PITCH-02 — Time 1.00× Pitch 1.19×_Audio 2-7.1.wav",
+      "sample_rate": 48000,
+      "channels": 8,
+      "frames": 6996480,
+      "duration_seconds": 145.76,
+      "format": "FLOAT",
+      "peak": [
+        0.8127196431159973,
+        0.8255194425582886,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19
+      ],
+      "rms": [
+        0.11690684507669873,
+        0.11229489690622821,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20
+      ],
+      "clipped_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finite_output": true,
+      "first_nonzero_sample": [
+        96083,
+        96002,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "last_nonzero_sample": [
+        6905801,
+        6905470,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "active_channels": [
+        1,
+        2
+      ]
+    },
+    "down3": {
+      "name": "PITCH-03 — Time 1.00× Pitch 0.84×_Audio 2-7.1.wav",
+      "sample_rate": 48000,
+      "channels": 8,
+      "frames": 6996480,
+      "duration_seconds": 145.76,
+      "format": "FLOAT",
+      "peak": [
+        0.9156944751739502,
+        0.9039478898048401,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19
+      ],
+      "rms": [
+        0.11886842468271935,
+        0.11400125080262662,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20
+      ],
+      "clipped_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finite_output": true,
+      "first_nonzero_sample": [
+        95847,
+        95844,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "last_nonzero_sample": [
+        6906311,
+        6906141,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "active_channels": [
+        1,
+        2
+      ]
+    },
+    "up12": {
+      "name": "PITCH-04 — Time 1.00× Pitch 2.00×_Audio 2-7.1.wav",
+      "sample_rate": 48000,
+      "channels": 8,
+      "frames": 6996480,
+      "duration_seconds": 145.76,
+      "format": "FLOAT",
+      "peak": [
+        0.699276864528656,
+        0.712063729763031,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19,
+        2.168404344971009e-19
+      ],
+      "rms": [
+        0.11621968457958338,
+        0.11148305876006215,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20,
+        3.833128347247962e-20
+      ],
+      "clipped_samples": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "finite_output": true,
+      "first_nonzero_sample": [
+        96116,
+        96116,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "last_nonzero_sample": [
+        6906190,
+        6906107,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1
+      ],
+      "active_channels": [
+        1,
+        2
+      ]
+    },
+    "bypass_internal": {
+      "name": "BYP-01 — Enabled ON OFF durante reproducción.wav",
+      "sample_rate": 48000,
+      "channels": 2,
+      "frames": 2150462,
+      "duration_seconds": 44.801291666666664,
+      "format": "PCM_24",
+      "peak": [
+        0.7967255115509033,
+        0.7708495855331421
+      ],
+      "rms": [
+        0.12009344809539373,
+        0.11538162998320645
+      ],
+      "clipped_samples": [
+        0,
+        0
+      ],
+      "finite_output": true,
+      "first_nonzero_sample": [
+        100726,
+        100712
+      ],
+      "last_nonzero_sample": [
+        2150461,
+        2150461
+      ],
+      "active_channels": [
+        1,
+        2
+      ]
+    },
+    "bypass_host": {
+      "name": "BYP-02 — Bypass nativo de Pro Tools.wav",
+      "sample_rate": 48000,
+      "channels": 2,
+      "frames": 1597502,
+      "duration_seconds": 33.28129166666667,
+      "format": "PCM_24",
+      "peak": [
+        0.5904451608657837,
+        0.5649679899215698
+      ],
+      "rms": [
+        0.10397128984948685,
+        0.10024261439942074
+      ],
+      "clipped_samples": [
+        0,
+        0
+      ],
+      "finite_output": true,
+      "first_nonzero_sample": [
+        100686,
+        100785
+      ],
+      "last_nonzero_sample": [
+        1597501,
+        1597501
+      ],
+      "active_channels": [
+        1,
+        2
+      ]
+    },
+    "latency": {
+      "name": "LAT-01 — Grabar el retorno de F-Form en otra pista.wav",
+      "sample_rate": 48000,
+      "channels": 2,
+      "frames": 2874302,
+      "duration_seconds": 59.88129166666667,
+      "format": "PCM_24",
+      "peak": [
+        0.7967251539230347,
+        0.7708497047424316
+      ],
+      "rms": [
+        0.12142570011717847,
+        0.11674203597032129
+      ],
+      "clipped_samples": [
+        0,
+        0
+      ],
+      "finite_output": true,
+      "first_nonzero_sample": [
+        100686,
+        100720
+      ],
+      "last_nonzero_sample": [
+        2874301,
+        2874301
+      ],
+      "active_channels": [
+        1,
+        2
+      ]
+    }
+  },
+  "relative_pitch": {
+    "up3": {
+      "estimated_pitch_shift_cents": 305,
+      "spectral_profile_correlation": 0.961,
+      "resolution_cents": 5,
+      "segment": "12-30 s",
+      "limitation": "Music-spectrum coarse relative estimate, not a precision pitch-meter"
+    },
+    "down3": {
+      "estimated_pitch_shift_cents": -300,
+      "spectral_profile_correlation": 0.964,
+      "resolution_cents": 5,
+      "segment": "12-30 s",
+      "limitation": "Music-spectrum coarse relative estimate, not a precision pitch-meter"
+    },
+    "up12": {
+      "estimated_pitch_shift_cents": 1200,
+      "spectral_profile_correlation": 0.949,
+      "resolution_cents": 5,
+      "segment": "12-30 s",
+      "limitation": "Music-spectrum coarse relative estimate, not a precision pitch-meter"
+    }
+  },
+  "null_at_5s": {
+    "bypass_internal": {
+      "window_seconds": [
+        5,
+        6
+      ],
+      "relative_null_db": -115.3,
+      "aligned_by_sample_index": true,
+      "does_not_establish_entire_file_null": true
+    },
+    "bypass_host": {
+      "window_seconds": [
+        5,
+        6
+      ],
+      "relative_null_db": -1.1,
+      "aligned_by_sample_index": true,
+      "does_not_establish_entire_file_null": true
+    },
+    "latency": {
+      "window_seconds": [
+        5,
+        6
+      ],
+      "relative_null_db": -115.3,
+      "aligned_by_sample_index": true,
+      "does_not_establish_entire_file_null": true
+    }
+  }
+}

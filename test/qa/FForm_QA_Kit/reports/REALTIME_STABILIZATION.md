@@ -112,6 +112,11 @@ Measured with the QA Kit tonal analyzer at unchanged duration:
 
 All four cases are inside the current diagnostic tolerance of ±5 cents. This validates pitch tuning for the tested synthetic tone; it does not certify vocal formants or perceptual quality.
 
+The +3 semitone result was also measured in independent two-second windows. The
+error ranged from approximately `+4.484725` to `+4.484760` cents, a range of
+`0.000035` cents. The offset is stable across the file and does not show
+progressive pitch drift. No algorithm change was made for this offset.
+
 ## 6. Bypass and latency
 
 A disabled mono render at 48 kHz, block size 512 produced:
@@ -186,3 +191,38 @@ Not validated yet:
 The most important remaining work is host-level validation and explicit transport lifecycle handling. The realtime engine now has a fixed-frame contract, but the correct interpretation of `inputLatency()` versus `outputLatency()` in every host remains to be checked with a real plugin instance.
 
 A future offline engine must be a separate contract using Signalsmith's input/output processing, seek and flush APIs. It must not be reintroduced into this realtime path by growing a FIFO.
+
+## 12. Pro Tools manual validation protocol
+
+Use the Release AAX package:
+
+```text
+build-release/PitchTimePro_artefacts/Release/AAX/F-Form.aaxplugin
+```
+
+Record the exact Pro Tools Developer version, sample rate, buffer size, host
+delay-compensation state and plugin version.
+
+1. **Neutral path:** test mono and stereo with `time_ratio=1.0` and
+  `pitch_ratio=1.0`; compare source and bounce duration and check start/end
+  clicks.
+2. **Pitch:** use a 440 Hz tone at `0`, `+3`, `-3` and `+12` semitones. Confirm
+  unchanged region duration and compare frequency with the QA tolerance.
+3. **Historical time values:** test `0.5`, `24/25`, `25/24`, `1.5` and `2.0`;
+  confirm the insert does not change timeline duration and identify that real
+  duration conversion is not available in realtime.
+4. **Bypass:** automate Enabled on/off during sustained audio. Check clicks,
+  timing jumps and delay-compensation changes.
+5. **Transport:** play, stop, restart, locate, loop and repeat. Check the first
+  transient after each locate for stale audio or discontinuity.
+6. **Automation:** automate pitch through `0`, `+3` and `-3` while playing.
+  Check zipper noise, resets and timing changes.
+7. **Sample rates and buffers:** repeat at 44.1, 48 and 96 kHz and host buffer
+  sizes 64, 127, 256, 512 and 1024 where available.
+8. **Bounce:** perform real-time and offline bounces separately. Compare
+  duration, alignment and pitch. Do not treat this as AudioSuite validation.
+9. **AAX validation:** run Avid's validator separately and record its output.
+
+The harness validates the DSP contract and internal counters. Only Pro Tools can
+validate host delay compensation, transport callbacks, bypass semantics,
+automation scheduling and bounce behavior.
