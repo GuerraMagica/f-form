@@ -1,0 +1,8 @@
+build/
+.DS_Store
+.env
+*.p12
+*.p8
+*.cer
+*.mobileprovision
+vendor/aax-sdk-2-9-0/
