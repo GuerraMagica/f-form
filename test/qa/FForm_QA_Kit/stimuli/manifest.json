@@ -1,0 +1,58 @@
+[
+  {
+    "name": "sync_mono",
+    "kind": "sync",
+    "file": "stimuli/sync_mono.wav",
+    "frames": 576000,
+    "channels": 1,
+    "sample_rate": 48000
+  },
+  {
+    "name": "sync_stereo_identical",
+    "kind": "sync",
+    "file": "stimuli/sync_stereo_identical.wav",
+    "frames": 576000,
+    "channels": 2,
+    "sample_rate": 48000
+  },
+  {
+    "name": "sync_stereo_antiphase",
+    "kind": "sync",
+    "file": "stimuli/sync_stereo_antiphase.wav",
+    "frames": 576000,
+    "channels": 2,
+    "sample_rate": 48000
+  },
+  {
+    "name": "sync_stereo_offset",
+    "kind": "sync",
+    "file": "stimuli/sync_stereo_offset.wav",
+    "frames": 576000,
+    "channels": 2,
+    "sample_rate": 48000
+  },
+  {
+    "name": "sync_5_1_offset",
+    "kind": "sync",
+    "file": "stimuli/sync_5_1_offset.wav",
+    "frames": 576000,
+    "channels": 6,
+    "sample_rate": 48000
+  },
+  {
+    "name": "tone_440_mono",
+    "kind": "tone",
+    "file": "stimuli/tone_440_mono.wav",
+    "frames": 576000,
+    "channels": 1,
+    "sample_rate": 48000
+  },
+  {
+    "name": "silence_stereo",
+    "kind": "silence",
+    "file": "stimuli/silence_stereo.wav",
+    "frames": 576000,
+    "channels": 2,
+    "sample_rate": 48000
+  }
+]

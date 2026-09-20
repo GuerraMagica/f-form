@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.22)
+cmake_minimum_required(VERSION 3.24)
 
 project(PitchTimePro VERSION 0.1.0 LANGUAGES C CXX)
 
@@ -25,12 +25,26 @@ FetchContent_Declare(
     signalsmith_stretch
     GIT_REPOSITORY https://github.com/Signalsmith-Audio/signalsmith-stretch.git
     GIT_TAG 57b93f4e9206a089a45387eaa39bdc9f310d3308
-    GIT_SHALLOW TRUE
 )
 
 FetchContent_MakeAvailable(signalsmith_stretch)
 
-juce_set_aax_sdk_path ("${CMAKE_CURRENT_SOURCE_DIR}/vendor/aax-sdk-2-9-0")
+option(FFORM_BUILD_AAX "Build the AAX plugin" OFF)
+option(FFORM_BUILD_QA_HARNESS "Build the headless DSP QA renderer" OFF)
+set(FFORM_AAX_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/vendor/aax-sdk-2-9-0" CACHE PATH
+    "Path to the AAX SDK")
+
+set(FFORM_FORMATS VST3 AU)
+
+if(FFORM_BUILD_AAX)
+    if(NOT EXISTS "${FFORM_AAX_SDK_PATH}/Interfaces/ACF")
+        message(FATAL_ERROR
+            "AAX SDK not found. Set FFORM_AAX_SDK_PATH or configure with -DFFORM_BUILD_AAX=OFF.")
+    endif()
+
+    juce_set_aax_sdk_path ("${FFORM_AAX_SDK_PATH}")
+    list(APPEND FFORM_FORMATS AAX)
+endif()
 
 juce_add_plugin(PitchTimePro
     COMPANY_NAME "Guerra Magica Audio"
@@ -41,7 +55,7 @@ juce_add_plugin(PitchTimePro
     EDITOR_WANTS_KEYBOARD_FOCUS FALSE
     COPY_PLUGIN_AFTER_BUILD FALSE
     PLUGIN_CODE "FFor"
-    FORMATS VST3 AU AAX
+    FORMATS ${FFORM_FORMATS}
     PRODUCT_NAME "F-Form"
     BUNDLE_ID "com.guerramagica.f-form"
 )
@@ -83,3 +97,32 @@ target_include_directories(PitchTimePro
 set_target_properties(PitchTimePro PROPERTIES
     XCODE_ATTRIBUTE_DEVELOPMENT_TEAM ""
 )
+
+if(FFORM_BUILD_QA_HARNESS)
+    add_executable(fform-qa-renderer
+        tools/fform-qa/main.cpp
+        src/TimeStretchEngine.h
+    )
+
+    target_include_directories(fform-qa-renderer
+        PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/src
+            ${CMAKE_CURRENT_SOURCE_DIR}/include
+            ${CMAKE_CURRENT_BINARY_DIR}/PitchTimePro_artefacts/JuceLibraryCode
+    )
+
+    target_compile_definitions(fform-qa-renderer
+        PRIVATE
+            JUCE_WEB_BROWSER=0
+            JUCE_USE_CURL=0
+    )
+
+    target_link_libraries(fform-qa-renderer
+        PRIVATE
+            juce::juce_audio_formats
+            juce::juce_audio_basics
+            juce::juce_dsp
+            juce::juce_graphics
+            signalsmith-stretch
+    )
+endif()

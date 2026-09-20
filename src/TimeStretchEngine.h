@@ -8,6 +8,23 @@
 class TimeStretchEngine
 {
 public:
+    struct Diagnostics
+    {
+        int64_t hostInputFrames = 0;
+        int64_t fifoInsertedFrames = 0;
+        int64_t engineRequestedInputFrames = 0;
+        int64_t engineConsumedInputFrames = 0;
+        int64_t engineProducedOutputFrames = 0;
+        int64_t fifoHighWaterFrames = 0;
+        int64_t fifoRejectedFrames = 0;
+        int64_t underflowEvents = 0;
+        int64_t underflowFrames = 0;
+        int64_t overflowEvents = 0;
+        int64_t reportedHostLatencySamples = 0;
+        int64_t inputLatencySamples = 0;
+        int64_t outputLatencySamples = 0;
+    };
+
     TimeStretchEngine() = default;
     ~TimeStretchEngine() = default;
 
@@ -23,6 +40,24 @@ public:
         stretch.reset();
         inputPointers.resize (numChannels);
         outputPointers.resize (numChannels);
+        diagnostics = {};
+        diagnostics.inputLatencySamples = stretch.inputLatency();
+        diagnostics.outputLatencySamples = stretch.outputLatency();
+    }
+
+    void setDiagnosticsEnabled (bool shouldEnable) noexcept
+    {
+        diagnosticsEnabled = shouldEnable;
+    }
+
+    void setReportedHostLatency (int samples) noexcept
+    {
+        diagnostics.reportedHostLatencySamples = samples;
+    }
+
+    Diagnostics getDiagnostics() const noexcept
+    {
+        return diagnostics;
     }
 
     void setTimeRatio (float ratio)
@@ -41,6 +76,9 @@ public:
         const auto inputChannels = juce::jmin (numChannels, buffer.getNumChannels());
         const auto numSamples = buffer.getNumSamples();
 
+        if (diagnosticsEnabled)
+            diagnostics.hostInputFrames += numSamples;
+
         if (inputChannels == 0 || numSamples == 0)
         {
             buffer.clear();
@@ -48,6 +86,15 @@ public:
         }
 
         const auto samplesToStore = juce::jmin (numSamples, fifoCapacity - fifoSamples);
+        const auto rejectedSamples = numSamples - samplesToStore;
+
+        if (diagnosticsEnabled)
+        {
+            diagnostics.fifoInsertedFrames += samplesToStore;
+            diagnostics.fifoRejectedFrames += rejectedSamples;
+            diagnostics.overflowEvents += rejectedSamples > 0 ? 1 : 0;
+        }
+
         for (int channel = 0; channel < inputChannels; ++channel)
             inputFifo.copyFrom (channel, fifoSamples, buffer.getReadPointer (channel), samplesToStore);
 
@@ -56,8 +103,19 @@ public:
 
         fifoSamples += samplesToStore;
 
+        if (diagnosticsEnabled)
+            diagnostics.fifoHighWaterFrames = juce::jmax<int64_t> (diagnostics.fifoHighWaterFrames, fifoSamples);
+
         const auto requestedInputSamples = juce::jmax (1, juce::roundToInt (numSamples / timeRatio));
         const auto inputSamples = juce::jmin (requestedInputSamples, fifoSamples);
+
+        if (diagnosticsEnabled)
+        {
+            diagnostics.engineRequestedInputFrames += requestedInputSamples;
+            diagnostics.engineConsumedInputFrames += inputSamples;
+            diagnostics.underflowEvents += inputSamples < requestedInputSamples ? 1 : 0;
+            diagnostics.underflowFrames += requestedInputSamples - inputSamples;
+        }
 
         if (inputSamples == 0)
         {
@@ -72,6 +130,9 @@ public:
         }
 
         stretch.process (inputPointers, inputSamples, outputPointers, numSamples);
+
+        if (diagnosticsEnabled)
+            diagnostics.engineProducedOutputFrames += numSamples;
 
         const auto remainingSamples = fifoSamples - inputSamples;
         for (int channel = 0; channel < numChannels; ++channel)
@@ -97,4 +158,6 @@ private:
     int fifoSamples = 0;
     float timeRatio = 1.0f;
     float pitchRatio = 1.0f;
+    bool diagnosticsEnabled = false;
+    Diagnostics diagnostics;
 };

@@ -32,6 +32,7 @@ void PitchTimeProAudioProcessor::prepareToPlay (double sampleRate, int samplesPe
     spec.numChannels = static_cast<juce::uint32> (getTotalNumOutputChannels());
     timeStretchEngine.prepare (spec);
     setLatencySamples (timeStretchEngine.getOutputLatency());
+    timeStretchEngine.setReportedHostLatency (getLatencySamples());
 }
 
 juce::AudioProcessorEditor* PitchTimeProAudioProcessor::createEditor()
