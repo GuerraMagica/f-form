@@ -23,6 +23,10 @@ public:
         int64_t reportedHostLatencySamples = 0;
         int64_t inputLatencySamples = 0;
         int64_t outputLatencySamples = 0;
+        int64_t directInputFrames = 0;
+        int64_t timeRatioFallbackEvents = 0;
+        int64_t timeRatioFallbackFrames = 0;
+        int64_t nonFiniteInputFrames = 0;
     };
 
     TimeStretchEngine() = default;
@@ -33,13 +37,15 @@ public:
         sampleRate = spec.sampleRate;
         numChannels = spec.numChannels;
         bufferSize = static_cast<int> (spec.maximumBlockSize);
-        fifoCapacity = bufferSize * 64;
-        inputFifo.setSize (numChannels, fifoCapacity, false, true, true);
-        fifoSamples = 0;
         stretch.presetDefault (numChannels, sampleRate, true);
         stretch.reset();
+        scratchBuffer.setSize (numChannels, bufferSize, false, true, true);
         inputPointers.resize (numChannels);
         outputPointers.resize (numChannels);
+        bypassDelay.setMaximumDelayInSamples (stretch.outputLatency() + bufferSize);
+        bypassDelay.prepare (spec);
+        bypassDelay.setDelay (static_cast<float> (stretch.outputLatency()));
+        bypassDelay.reset();
         diagnostics = {};
         diagnostics.inputLatencySamples = stretch.inputLatency();
         diagnostics.outputLatencySamples = stretch.outputLatency();
@@ -62,13 +68,18 @@ public:
 
     void setTimeRatio (float ratio)
     {
-        timeRatio = juce::jlimit (0.5f, 2.0f, ratio);
+        timeRatio = std::isfinite (ratio) ? juce::jlimit (0.5f, 2.0f, ratio) : 1.0f;
     }
 
     void setPitchRatio (float ratio)
     {
-        pitchRatio = juce::jlimit (0.5f, 2.0f, ratio);
+        pitchRatio = std::isfinite (ratio) ? juce::jlimit (0.5f, 2.0f, ratio) : 1.0f;
         stretch.setTransposeSemitones (12.0f * std::log2 (pitchRatio));
+    }
+
+    void setEnabled (bool shouldProcess) noexcept
+    {
+        enabled = shouldProcess;
     }
 
     void process (juce::AudioBuffer<float>& buffer)
@@ -85,60 +96,57 @@ public:
             return;
         }
 
-        const auto samplesToStore = juce::jmin (numSamples, fifoCapacity - fifoSamples);
-        const auto rejectedSamples = numSamples - samplesToStore;
-
         if (diagnosticsEnabled)
         {
-            diagnostics.fifoInsertedFrames += samplesToStore;
-            diagnostics.fifoRejectedFrames += rejectedSamples;
-            diagnostics.overflowEvents += rejectedSamples > 0 ? 1 : 0;
+            diagnostics.directInputFrames += numSamples;
+            diagnostics.engineRequestedInputFrames += numSamples;
+            diagnostics.engineConsumedInputFrames += numSamples;
         }
 
         for (int channel = 0; channel < inputChannels; ++channel)
-            inputFifo.copyFrom (channel, fifoSamples, buffer.getReadPointer (channel), samplesToStore);
+        {
+            auto* scratch = scratchBuffer.getWritePointer (channel);
+            const auto* input = buffer.getReadPointer (channel);
+            for (int sample = 0; sample < numSamples; ++sample)
+            {
+                scratch[sample] = input[sample];
+                if (diagnosticsEnabled && ! std::isfinite (input[sample]))
+                    ++diagnostics.nonFiniteInputFrames;
+            }
+        }
 
         for (int channel = inputChannels; channel < numChannels; ++channel)
-            inputFifo.clear (channel, fifoSamples, samplesToStore);
+            scratchBuffer.clear (channel, 0, numSamples);
 
-        fifoSamples += samplesToStore;
-
-        if (diagnosticsEnabled)
-            diagnostics.fifoHighWaterFrames = juce::jmax<int64_t> (diagnostics.fifoHighWaterFrames, fifoSamples);
-
-        const auto requestedInputSamples = juce::jmax (1, juce::roundToInt (numSamples / timeRatio));
-        const auto inputSamples = juce::jmin (requestedInputSamples, fifoSamples);
-
-        if (diagnosticsEnabled)
+        for (int channel = 0; channel < inputChannels; ++channel)
         {
-            diagnostics.engineRequestedInputFrames += requestedInputSamples;
-            diagnostics.engineConsumedInputFrames += inputSamples;
-            diagnostics.underflowEvents += inputSamples < requestedInputSamples ? 1 : 0;
-            diagnostics.underflowFrames += requestedInputSamples - inputSamples;
-        }
-
-        if (inputSamples == 0)
-        {
-            buffer.clear();
-            return;
-        }
-
-        for (int channel = 0; channel < numChannels; ++channel)
-        {
-            inputPointers[channel] = inputFifo.getReadPointer (channel);
+            inputPointers[channel] = scratchBuffer.getReadPointer (channel);
             outputPointers[channel] = buffer.getWritePointer (channel);
         }
 
-        stretch.process (inputPointers, inputSamples, outputPointers, numSamples);
+        for (int channel = 0; channel < inputChannels; ++channel)
+        {
+            const auto* input = scratchBuffer.getReadPointer (channel);
+            for (int sample = 0; sample < numSamples; ++sample)
+            {
+                bypassDelay.pushSample (channel, input[sample]);
+                const auto delayed = bypassDelay.popSample (channel, static_cast<float> (stretch.outputLatency()));
+                if (! enabled)
+                    buffer.setSample (channel, sample, delayed);
+            }
+        }
+
+        if (std::abs (timeRatio - 1.0f) > 1.0e-6f && diagnosticsEnabled)
+        {
+            ++diagnostics.timeRatioFallbackEvents;
+            diagnostics.timeRatioFallbackFrames += numSamples;
+        }
+
+        if (enabled)
+            stretch.process (inputPointers, numSamples, outputPointers, numSamples);
 
         if (diagnosticsEnabled)
             diagnostics.engineProducedOutputFrames += numSamples;
-
-        const auto remainingSamples = fifoSamples - inputSamples;
-        for (int channel = 0; channel < numChannels; ++channel)
-            inputFifo.copyFrom (channel, 0, inputFifo.getReadPointer (channel, inputSamples), remainingSamples);
-
-        fifoSamples = remainingSamples;
 
         for (int channel = inputChannels; channel < buffer.getNumChannels(); ++channel)
             buffer.clear (channel, 0, numSamples);
@@ -148,16 +156,16 @@ public:
 
 private:
     signalsmith::stretch::SignalsmithStretch<float> stretch { 42 };
-    juce::AudioBuffer<float> inputFifo;
+    juce::AudioBuffer<float> scratchBuffer;
+    juce::dsp::DelayLine<float, juce::dsp::DelayLineInterpolationTypes::None> bypassDelay;
     std::vector<const float*> inputPointers;
     std::vector<float*> outputPointers;
     double sampleRate = 48000.0;
     int numChannels = 2;
     int bufferSize = 2048;
-    int fifoCapacity = 0;
-    int fifoSamples = 0;
     float timeRatio = 1.0f;
     float pitchRatio = 1.0f;
+    bool enabled = true;
     bool diagnosticsEnabled = false;
     Diagnostics diagnostics;
 };

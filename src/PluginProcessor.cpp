@@ -49,11 +49,7 @@ void PitchTimeProAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer,
     pitchRatio = *parameters.getRawParameterValue ("pitch_ratio");
     enabled = *parameters.getRawParameterValue ("enabled") > 0.5f;
 
-    if (! enabled)
-    {
-        return;
-    }
-
+    timeStretchEngine.setEnabled (enabled);
     timeStretchEngine.setTimeRatio (timeRatio);
     timeStretchEngine.setPitchRatio (pitchRatio);
     timeStretchEngine.process (buffer);

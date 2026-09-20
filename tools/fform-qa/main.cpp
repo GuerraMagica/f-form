@@ -22,6 +22,7 @@ struct Options
     double pitchSemitones = 0.0;
     int blockSize = 512;
     bool randomPartitions = false;
+    bool enabled = true;
     uint32_t seed = 1337;
 };
 
@@ -53,6 +54,7 @@ Options parseOptions (int argc, char* argv[])
     options.pitchSemitones = std::stod (getOption (argc, argv, "--pitch-semitones", "0.0"));
     options.blockSize = std::stoi (getOption (argc, argv, "--block-size", "512"));
     options.randomPartitions = hasFlag (argc, argv, "--random-partitions");
+    options.enabled = ! hasFlag (argc, argv, "--disabled");
     options.seed = static_cast<uint32_t> (std::stoul (getOption (argc, argv, "--seed", "1337")));
 
     if (options.input == juce::File() || options.output == juce::File() || options.diagnostics == juce::File())
@@ -93,6 +95,7 @@ void writeDiagnostics (const juce::File& file,
            << "  \"pitch_semitones\": " << options.pitchSemitones << ",\n"
            << "  \"block_size\": " << options.blockSize << ",\n"
            << "  \"random_partitions\": " << (options.randomPartitions ? "true" : "false") << ",\n"
+           << "  \"enabled\": " << (options.enabled ? "true" : "false") << ",\n"
            << "  \"seed\": " << options.seed << ",\n"
            << "  \"diagnostics\": {\n"
            << "    \"host_input_frames\": " << diagnostics.hostInputFrames << ",\n"
@@ -107,7 +110,11 @@ void writeDiagnostics (const juce::File& file,
            << "    \"overflow_events\": " << diagnostics.overflowEvents << ",\n"
            << "    \"reported_host_latency_samples\": " << diagnostics.reportedHostLatencySamples << ",\n"
            << "    \"input_latency_samples\": " << diagnostics.inputLatencySamples << ",\n"
-           << "    \"output_latency_samples\": " << diagnostics.outputLatencySamples << "\n"
+           << "    \"output_latency_samples\": " << diagnostics.outputLatencySamples << ",\n"
+           << "    \"direct_input_frames\": " << diagnostics.directInputFrames << ",\n"
+           << "    \"time_ratio_fallback_events\": " << diagnostics.timeRatioFallbackEvents << ",\n"
+           << "    \"time_ratio_fallback_frames\": " << diagnostics.timeRatioFallbackFrames << ",\n"
+           << "    \"non_finite_input_frames\": " << diagnostics.nonFiniteInputFrames << "\n"
            << "  }\n"
            << "}\n";
 }
@@ -144,6 +151,7 @@ int main (int argc, char* argv[])
         engine.prepare (spec);
         engine.setDiagnosticsEnabled (true);
         engine.setReportedHostLatency (engine.getOutputLatency());
+        engine.setEnabled (options.enabled);
         engine.setTimeRatio (static_cast<float> (options.timeRatio));
         engine.setPitchRatio (static_cast<float> (std::pow (2.0, options.pitchSemitones / 12.0)));
 
